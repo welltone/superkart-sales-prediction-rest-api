@@ -1,4 +1,9 @@
 
+import joblib
+import pandas as pd
+
+# Load the model directly
+model = joblib.load("frintend/model.pkl")
 import streamlit as st
 import requests
 
@@ -29,6 +34,19 @@ product_data = {
     "Product_Type_Category": Product_Type_Category
 }
 
+if st.button("Predict", type="primary"):
+    try:
+        # Convert your product_data dictionary to a DataFrame
+        input_df = pd.DataFrame([product_data])
+
+        # Predict directly
+        predicted_sales = model.predict(input_df)[0]
+        st.write(
+            f"Predicted Product Store Sales Total: ₹{predicted_sales:.2f}"
+        )
+    except Exception as e:
+        st.error(f"Error making prediction: {e}")
+"""
 if st.button("Predict", type='primary'):
     response = requests.post("https://<user_name>-<space_name>.hf.space/v1/predict", json=product_data)
     if response.status_code == 200:
@@ -37,6 +55,7 @@ if st.button("Predict", type='primary'):
         st.write(f"Predicted Product Store Sales Total: ₹{predicted_sales:.2f}")
     else:
         st.error("Error in API request")
+        """
 """
 %%writefile frontend_files/app.py
 
