@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 
 # Load the model directly
-model = joblib.load("frontend/xgb_tuned_model.joblib")
+model = joblib.load("backend/xgb_tuned_model.joblib")
 import streamlit as st
 import requests
 
